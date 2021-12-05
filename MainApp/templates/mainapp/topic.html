@@ -1,0 +1,22 @@
+{% extends "MainApp/base.html" %}
+
+{% block content %}
+
+<p>Topics: {{ topic }}</p>
+
+<ul>
+    {% for e in entries %}
+    <li>
+        <p>{{e.text |linebreaks}}</p>
+        <p>{{e.date_added }}</p>
+    </li>
+    {% empty %}
+    <li> There are no entries for this topic yet.</li>
+    {% endfor %}
+</ul>
+
+<p>
+    <a href="{% url 'MainApp:new_entry' topic.id %}">add a new entry</a>
+</p>
+
+{% endblock content %}
