@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PizzeriasConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'pizzerias'
+class PizzasConfig(AppConfig):
+    name = 'pizzas'
+
