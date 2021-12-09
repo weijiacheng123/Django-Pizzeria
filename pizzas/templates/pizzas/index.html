@@ -1,0 +1,14 @@
+{% extends "pizzas/base.html" %}
+
+{% block page_header %}
+    <div class="jumbotron">
+        <h1 class="display-3">Welcome to Pizzeria!</h1>
+
+        <p class="lead">Best choose in the campus. if you want to make an order, please log in to 
+            our page and choose what kind of Pizzas you want from menus.</p>
+        
+            <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+                role="button">Register &raquo;</a>
+    </div>
+
+{% endblock page_header %}

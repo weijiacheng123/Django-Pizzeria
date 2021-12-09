@@ -3,25 +3,34 @@ from django.db import models
 # Create your models here.
 class Pizza(models.Model):
     """Type of pizzas."""
-    text = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         """Returns a string representation of the model."""
-        return self.text
+        return self.name
 
-class Entry(models.Model):
+
+class Topping(models.Model):
     """Specific types of pizzas"""
+    pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        """Returns a string representation of the model."""
+        return self.name
+    
+
+class Comment(models.Model):
     pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE)
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'Pizza Toppings'
+        verbose_name_plural = 'Comments'
 
     def __str__(self):
-        """Return a string representation of the model."""
-        if len(self.text) < 50:
-            return self.text
-        else:
-            return self.text[:50] + "..."
+        return f"{self.text[:50]}..."
+
+
+
