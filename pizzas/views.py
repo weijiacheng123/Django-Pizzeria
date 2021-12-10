@@ -28,8 +28,8 @@ def pizza2(request, pizza2_id):
     toppings = pizza2.topping_set.all()
     comments = pizza2.comment_set.all()
 
-    context = {'pizza':pizza1, 'toppings':toppings}
-    context = {'pizza':pizza1, 'comments':comments}
+    context = {'pizza2':pizza2, 'toppings':toppings, 'comments':comments}
+    #context = {'pizza':pizza2, 'comments':comments}
 
     return render(request, 'pizzas/pizza2.html', context)
 
@@ -37,6 +37,7 @@ def pizza2(request, pizza2_id):
 @login_required
 def new_comment(request, pizza2_id):
     pizza2 = Pizza.objects.get(id=pizza2_id)
+
     if request.method != 'POST':
         form = CommentForm()
     else:
@@ -57,20 +58,17 @@ def new_comment(request, pizza2_id):
 def edit_comment(request, comment_id):
     """Edit an existing entry."""
     comment = Comment.objects.get(id=comment_id)
-    topping = comment.pizza2
-
-    if topping.owner != request.user:
-        raise Http404
+    pizza2 = comment.pizza2
 
     if request.method != 'POST':
         # this argument teills Django to create the form prefilled
         # with information from the exiting entry object.
-        form = CommentForm(instance=comment_id)
+        form = CommentForm(instance=comment)
     else:
         # POST data submitted; process data.
         form = CommentForm(instance=comment, data=request.POST)
         if form.is_valid():
             form.save()
             return redirect('pizzas:pizza2', pizza2_id=pizza2.id)
-    context = {'entry':comment, 'topping':topping, 'form':form}
+    context = {'comment':comment, 'pizza2':pizza2, 'form':form}
     return render(request, 'pizzas/edit_comment.html', context)
