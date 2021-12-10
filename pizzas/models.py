@@ -33,4 +33,10 @@ class Comment(models.Model):
         return f"{self.text[:50]}..."
 
 
+class Image(models.Model):
+    pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images')
+
+    def __str__(self):
+        return self.image
 

@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import fields, widgets
-from .models import Pizza, Topping, Comment
+from .models import Comment, Image
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -8,3 +8,8 @@ class CommentForm(forms.ModelForm):
         fields = ['text']
         labels = {'text':''}
         #widgets = {'text': forms.Textarea(attrs={'cols':80})}
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = ('pizza', 'image')

@@ -3,10 +3,10 @@ from django.shortcuts import render
 # Create your views here.
 
 from django.shortcuts import render, redirect
-from pizzas.forms import CommentForm
+from pizzas.forms import CommentForm, ImageForm
 from .models import Pizza, Topping, Comment
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+
 
 # Create your views here.
 def index(request):
@@ -27,8 +27,14 @@ def pizza2(request, pizza2_id):
 
     toppings = pizza2.topping_set.all()
     comments = pizza2.comment_set.all()
+    images  = pizza2.image_set.all()
 
-    context = {'pizza2':pizza2, 'toppings':toppings, 'comments':comments}
+    if request.method != 'POST':
+        form = ImageForm()
+    else:
+        form = ImageForm(data=request.POST)
+
+    context = {'pizza2':pizza2, 'toppings':toppings, 'comments':comments, 'images':images, 'form':form}
     #context = {'pizza':pizza2, 'comments':comments}
 
     return render(request, 'pizzas/pizza2.html', context)
@@ -45,7 +51,7 @@ def new_comment(request, pizza2_id):
 
         if form.is_valid():
             new_comment = form.save(commit=False)
-            new_comment.pizza2 = pizza2
+            new_comment.pizza = pizza2
             new_comment.save()
 
             return redirect('pizzas:pizza2', pizza2_id=pizza2_id)
@@ -53,22 +59,3 @@ def new_comment(request, pizza2_id):
     context = {'form':form, 'pizza2':pizza2}
     return render(request, 'pizzas/new_comment.html', context)
 
-
-@login_required
-def edit_comment(request, comment_id):
-    """Edit an existing entry."""
-    comment = Comment.objects.get(id=comment_id)
-    pizza2 = comment.pizza2
-
-    if request.method != 'POST':
-        # this argument teills Django to create the form prefilled
-        # with information from the exiting entry object.
-        form = CommentForm(instance=comment)
-    else:
-        # POST data submitted; process data.
-        form = CommentForm(instance=comment, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('pizzas:pizza2', pizza2_id=pizza2.id)
-    context = {'comment':comment, 'pizza2':pizza2, 'form':form}
-    return render(request, 'pizzas/edit_comment.html', context)

@@ -1,7 +1,9 @@
 {% extends "pizzas/base.html" %}
+{% load static %}
 
 {% block page_header %}
 <h3>{{ pizza2 }}</h3>
+- you can add below topping for your pizza.
 {% endblock page_header %}
 
 
@@ -11,13 +13,16 @@
     {% for t in toppings %}
 
     <li><h3>
-        <a href="{% url 'pizzas:pizza2' t.id %}">{{ t }}</a>
+        {{ t }}
     </h3></li>
     {% empty %}
     <li><h3>No pizza's topping have been added yet.</h3></li>
     {% endfor %}
 </ul>
 
+
+<img src="{% static 'pizzas/Hawaiian.jpg' pizza2.id %}" alt="Hawaiian" width="300" height="300">
+<img src="{% static 'pizzas/Meat.png' pizza2.id %}" alt="Meat lovers" width="300" height="300">
 
 <p>
     <a href="{% url 'pizzas:new_comment' pizza2.id %}">add a new comment</a>
@@ -28,8 +33,6 @@
 <div class="card mb-3">
     <h4 class="card-header">
         {{ c.date_added }}
-        <small><a href="{% url 'pizzas:edit_comment' c.id %}">
-                edit comment</a></small>
     </h4>
     <div class="card-body">
         {{ c.text|linebreaks }}
