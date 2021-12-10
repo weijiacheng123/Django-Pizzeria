@@ -2,9 +2,6 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def index(request):
-    return render(request, 'pizzas/index.html')
-
 from django.shortcuts import render, redirect
 from pizzas.forms import CommentForm
 from .models import Pizza, Topping, Comment
@@ -18,12 +15,11 @@ def index(request):
 
 
 def pizza1(request):
-    pizza1 = Pizza.objects.filter(owner=request.user).order_by('date_added')
+    pizza1 = Pizza.objects.order_by('date_added')
 
     context = {'pizza1':pizza1}
 
     return render(request, 'pizzas/pizza1.html', context)
-
 
 
 def pizza2(request, pizza2_id):
@@ -55,6 +51,7 @@ def new_comment(request, pizza2_id):
     
     context = {'form':form, 'pizza2':pizza2}
     return render(request, 'pizzas/new_comment.html', context)
+
 
 @login_required
 def edit_comment(request, comment_id):

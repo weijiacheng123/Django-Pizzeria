@@ -1,4 +1,4 @@
-{% extends "MainApp/base.html" %}
+{% extends "pizzas/base.html" %}
 
 {% block page_header %}
     <h1>Pizzas</h1>
@@ -11,7 +11,7 @@
     {% for p in pizza1 %}
 
     <li><h3>
-        <a href="{% url 'pizzas:pizza1' p.id %}">{{ t }}</a>
+        <a href="{% url 'pizzas:pizza2' p.id %}">{{ p }}</a>
     </h3></li>
     {% empty %}
     <li><h3>No pizzas have been added yet.</h3></li>
