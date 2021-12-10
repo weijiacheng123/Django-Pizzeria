@@ -8,10 +8,10 @@
 {% block content %}
 
 <ul>
-    {% for t in topping %}
+    {% for t in toppings %}
 
     <li><h3>
-        <a href="{% url 'pizzas:topping' t.id %}">{{ t }}</a>
+        <a href="{% url 'pizzas:pizza2' t.id %}">{{ t }}</a>
     </h3></li>
     {% empty %}
     <li><h3>No pizza's topping have been added yet.</h3></li>
@@ -24,10 +24,10 @@
 </p>
 
 
-{% for c in comment %}
+{% for c in comments %}
 <div class="card mb-3">
     <h4 class="card-header">
-        {{ e.date_added }}
+        {{ c.date_added }}
         <small><a href="{% url 'pizzas:edit_comment' c.id %}">
                 edit comment</a></small>
     </h4>

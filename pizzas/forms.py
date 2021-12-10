@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import fields
+from django.forms import fields, widgets
 from .models import Pizza, Topping, Comment
 
 class CommentForm(forms.ModelForm):
@@ -7,3 +7,4 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['text']
         labels = {'text':''}
+        #widgets = {'text': forms.Textarea(attrs={'cols':80})}

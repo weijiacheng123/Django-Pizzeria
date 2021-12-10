@@ -15,10 +15,10 @@ for pizza in pizzas1:
     print(pizza.name)
     print(pizza.date_added)
 
-p = Pizza.objects.get(id=2)
-print(p)
+pizzas2 = Pizza.objects.get(id=3)
+print(pizzas2)
 
-toppings = p.topping_set.all()
+toppings = pizzas2.topping_set.all()
 
 for t in toppings:
     print(t)
