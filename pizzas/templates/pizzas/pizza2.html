@@ -1,0 +1,44 @@
+{% extends "MainApp/base.html" %}
+
+{% block page_header %}
+<h3>{{ pizza2 }}</h3>
+{% endblock page_header %}
+
+
+{% block content %}
+
+<ul>
+    {% for t in topping %}
+
+    <li><h3>
+        <a href="{% url 'pizzas:topping' t.id %}">{{ t }}</a>
+    </h3></li>
+    {% empty %}
+    <li><h3>No pizza's topping have been added yet.</h3></li>
+    {% endfor %}
+</ul>
+
+
+<p>
+    <a href="{% url 'pizzas:new_comment' pizza2.id %}">add a new comment</a>
+</p>
+
+
+{% for c in comment %}
+<div class="card mb-3">
+    <h4 class="card-header">
+        {{ e.date_added }}
+        <small><a href="{% url 'pizzas:edit_comment' c.id %}">
+                edit comment</a></small>
+    </h4>
+    <div class="card-body">
+        {{ c.text|linebreaks }}
+    </div>
+</div>
+
+{% empty %}
+<li> There are no comment for this topic yet.</li>
+{% endfor %}
+
+
+{% endblock content %}

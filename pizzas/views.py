@@ -14,34 +14,26 @@ from django.http import Http404
 # Create your views here.
 def index(request):
     # get post may on interview
-    return render(request, 'MainApp/index.html')
+    return render(request, 'pizzas/index.html')
 
-@login_required
+
 def pizza1(request):
     pizza1 = Pizza.objects.filter(owner=request.user).order_by('date_added')
 
     context = {'pizza1':pizza1}
 
-    return render(request, 'pizzas/pizza.html', context)
+    return render(request, 'pizzas/pizza1.html', context)
 
-@login_required
+
+
 def pizza2(request, pizza2_id):
     pizza2 = Pizza.objects.get(id=pizza2_id)
 
-    if topping.owner != request.user:
-        raise Http404
-
+    toppings = pizza2.topping_set.all()
     comments = pizza2.comment_set.all()
 
+    context = {'pizza':pizza1, 'toppings':toppings}
     context = {'pizza':pizza1, 'comments':comments}
-
-    return render(request, 'pizzas/pizza2.html', context)
-
-@login_required
-def topping(request, pt_id):
-    topping = Topping.objects.get(id=pt_id)
-
-    context = {'topping':topping}
 
     return render(request, 'pizzas/pizza2.html', context)
 
@@ -59,9 +51,9 @@ def new_comment(request, pizza2_id):
             new_comment.pizza2 = pizza2
             new_comment.save()
 
-            return redirect('pizzas:topic', pizza2_id=pizza2_id)
+            return redirect('pizzas:pizza2', pizza2_id=pizza2_id)
     
-    context = {'form':form, 'topping':topping}
+    context = {'form':form, 'pizza2':pizza2}
     return render(request, 'pizzas/new_comment.html', context)
 
 @login_required
@@ -82,6 +74,6 @@ def edit_comment(request, comment_id):
         form = CommentForm(instance=comment, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('pizzas:topping', pizza2_id=pizza2.id)
+            return redirect('pizzas:pizza2', pizza2_id=pizza2.id)
     context = {'entry':comment, 'topping':topping, 'form':form}
     return render(request, 'pizzas/edit_comment.html', context)

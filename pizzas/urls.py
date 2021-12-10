@@ -5,9 +5,8 @@ app_name = 'pizzas'
 urlpatterns = [
     #main page
     path('', views.index, name='index'),
-    path('topics',views.topics, name='topics'),
-    path('topics/<int:topic_id>/', views.topic, name='topic'),
-    path('new_topic/',views.new_topic, name='new_topic'),
-    path('new_entry/<int:topic_id>/', views.new_entry, name='new_entry'),
-    path('edit_entry/<int:entry_id>/', views.edit_entry, name='edit_entry')
+    path('pizza1',views.pizza1, name='pizza1'),
+    path('pizza1/<int:pizza2_id>/', views.pizza2, name='pizza2'),
+    path('new_comment/<int:pizza2_id>/', views.new_comment, name='new_comment'),
+    path('edit_comment/<int:comment_id>/', views.edit_comment, name='edit_comment')
 ]
