@@ -40,7 +40,7 @@ def pizza2(request, pizza2_id):
     return render(request, 'pizzas/pizza2.html', context)
 
 
-@login_required
+#@login_required
 def new_comment(request, pizza2_id):
     pizza2 = Pizza.objects.get(id=pizza2_id)
 
