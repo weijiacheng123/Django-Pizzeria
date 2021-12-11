@@ -21,8 +21,18 @@
 </ul>
 
 
-<img src="{% static 'pizzas/Hawaiian.jpg' pizza2.id %}" alt="Hawaiian" width="300" height="300">
-<img src="{% static 'pizzas/Meat.png' pizza2.id %}" alt="Meat lovers" width="300" height="300">
+<ul>
+    {% for i in images %}
+
+    <li><h3>
+        <img src="{{ i }}" width="300" height="300">
+
+    </h3></li>
+    {% empty %}
+
+    {% endfor %}
+</ul>
+
 
 <p>
     <a href="{% url 'pizzas:new_comment' pizza2.id %}">add a new comment</a>

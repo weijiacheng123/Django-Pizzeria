@@ -35,7 +35,7 @@ class Comment(models.Model):
 
 class Image(models.Model):
     pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images')
+    image = models.ImageField(upload_to='pizzas/static/pizzas')
 
 
 
