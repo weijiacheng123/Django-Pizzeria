@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from django.shortcuts import render, redirect
 from pizzas.forms import CommentForm, ImageForm
-from .models import Pizza, Topping, Comment
+from .models import Pizza, Topping, Comment, Image
 from django.contrib.auth.decorators import login_required
 
 
@@ -27,14 +27,9 @@ def pizza2(request, pizza2_id):
 
     toppings = pizza2.topping_set.all()
     comments = pizza2.comment_set.all()
-    images  = pizza2.image_set.all()
-
-    if request.method != 'POST':
-        form = ImageForm()
-    else:
-        form = ImageForm(data=request.POST)
-
-    context = {'pizza2':pizza2, 'toppings':toppings, 'comments':comments, 'images':images, 'form':form}
+    image  = Image.objects.get(pizza=pizza2)
+    print(image)
+    context = {'pizza2':pizza2, 'toppings':toppings, 'comments':comments, 'image':image}
     #context = {'pizza':pizza2, 'comments':comments}
 
     return render(request, 'pizzas/pizza2.html', context)
