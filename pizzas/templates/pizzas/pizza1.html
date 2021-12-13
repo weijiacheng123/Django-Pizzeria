@@ -1,23 +1,31 @@
 {% extends "pizzas/base.html" %}
 
 {% block page_header %}
-    <h1>Pizzas</h1>
+    <h1 style="color: saddlebrown;">Pizzas</h1>
 {% endblock page_header %}
 
 {% block content %}
 
+<style>
+    .jumbotron {background-color: white;
 
-<ul>
-    {% for p in pizza1 %}
+    }
+</style>
 
-    <li><h3>
-        <a href="{% url 'pizzas:pizza2' p.id %}">{{ p }}</a>
-    </h3></li>
-    {% empty %}
-    <li><h3>No pizzas have been added yet.</h3></li>
-    {% endfor %}
-</ul>
+<div class="jumbotron">
+    <ul>
+        {% for p in pizza1 %}
 
+    
+        <li><h3>
+            <a href="{% url 'pizzas:pizza2' p.id %}" style="color: saddlebrown;">{{ p }}</a>
+        </h3></li>
+ 
+        {% empty %}
+        <li><h3>No pizzas have been added yet.</h3></li>
+        {% endfor %}
+    </ul>
+</div>
 
 
 {% endblock content %}
